@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.views.generic import TemplateView, DetailView
 from .models import Question
@@ -48,3 +49,17 @@ def display(request):
             'latest_question_list': latest_question_list,
              }
     return HttpResponse(template.render(context, request))
+
+
+def detail(request, question_id):
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'detail.html', {'question': question})
+
+
+def details(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'details.html', {'question': question})
+
