@@ -7,9 +7,10 @@ urlpatterns = [
     path('home', views.home, name='home'),
     path('page', views.page, name='page'),
     path('display', views.display, name='page'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
     path('detail/<int:question_id>', views.detail, name='detail'),
     path('details/<int:question_id>', views.details, name='details'),
-    path('vote/<int:question_id>', views.vote, name='votess'),
+    path('voteme/<int:question_id>', views.voteme, name='voteme'),
     path('test/<pk>/', views.TestView.as_view(), name="test"),
 
 ]
